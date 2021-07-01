@@ -14,25 +14,8 @@ module.exports.build = ({ nutIocConfigurationProvider }) => {
     nutIocContainer.use({
         dependencyPath: './src',
         ignoredDependencies: ['*.DS_Store'],
-        interceptor: ({ serviceName, namespace, interceptors: { timingInterceptor, errorInterceptor, appLoggerInterceptor, authTokenInterceptor, accessTokenInterceptor, serviceContextInterceptor } }) => {
-
-            if (namespace === 'controllers') {
-                return [
-                    serviceContextInterceptor,
-                    errorInterceptor,
-                    appLoggerInterceptor,
-                    timingInterceptor,
-                    authTokenInterceptor,
-                    accessTokenInterceptor
-                ];
-            }
-            
-            if (ignoredInterceptors.some(item => serviceName === item || namespace === item)) {
-                return [];
-            }
-
-            return [errorInterceptor, appLoggerInterceptor, timingInterceptor];
-
+        interceptor: ({ serviceName, namespace, interceptors }) => {
+            return []
         }
     });
 
