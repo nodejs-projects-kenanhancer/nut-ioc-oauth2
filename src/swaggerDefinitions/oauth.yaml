@@ -1,0 +1,96 @@
+openapi: 3.0.3
+info:
+  description: Nut OAuth API
+  version: 0.0.1
+  title: Nut OAuth API
+
+servers:
+- url: /oauth
+
+paths:
+  /health:
+    get:
+      summary: Service Health Status
+      operationId: controllers.oauth.health
+      responses:
+        '200':
+          $ref: '#/components/responses/Health'
+        default:
+          $ref: '#/components/responses/Error'
+
+  /authorize:
+    get:
+      summary: To be get authorization code
+      operationId: controllers.oauth.authorize
+      parameters:
+        - $ref: '#/components/parameters/client_id'
+        - $ref: '#/components/parameters/response_type'
+        - $ref: '#/components/parameters/redirect_uri'
+      responses:
+        '200':
+          description: success
+        default:
+          $ref: '#/components/responses/Error'
+
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message: 
+          type: string
+        status: 
+          type: integer
+
+  parameters:
+    client_id:
+      name: client_id
+      in: query
+      required: true
+      schema:
+        type: string
+    response_type:
+      name: response_type
+      in: header
+      required: true
+      schema:
+        type: string
+    redirect_uri:
+      name: redirect_uri
+      in: header
+      required: true
+      schema:
+        type: string
+
+  examples:
+    bad_request:
+      description: Bad Request
+      value: {"code": "bad_request","message": "Bad Request","status": 400}
+
+  responses:
+    Health:
+      description: Whether the service is healthy
+      content:
+          text/plain:
+            schema:
+              type: string
+              example: ok
+              
+    Error:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+             
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            bad_request:
+              $ref: '#/components/examples/bad_request'

@@ -102,3 +102,12 @@ dist
 
 # TernJS port file
 .tern-port
+
+# Mac finder settings file
+.DS_Store
+
+# Packge Lock JSON
+package-lock.json
+
+# VS Code Settigs
+.vscode/
