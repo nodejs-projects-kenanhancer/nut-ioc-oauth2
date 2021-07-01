@@ -53,13 +53,13 @@ components:
         type: string
     response_type:
       name: response_type
-      in: header
+      in: query
       required: true
       schema:
         type: string
     redirect_uri:
       name: redirect_uri
-      in: header
+      in: query
       required: true
       schema:
         type: string
