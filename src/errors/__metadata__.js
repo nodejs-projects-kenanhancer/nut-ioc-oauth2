@@ -1,5 +1,5 @@
 module.exports = {
-    Namespace: "persisters.rdbms",
+    Namespace: "",
     ServiceName: "", 
     Service: () => {
     }

@@ -1,0 +1,71 @@
+{
+    "repositories": ["client","authorize"],
+    "methods": [
+        {
+            "method":"findById",
+            "persisters": [
+                {"persister":"redis","next_rule":"ifnull","pass_value_next_asparameter":false},
+                {"persister":"rdbms","next_rule":"hasvalue","pass_value_next_asparameter":true},
+                {"persister":"redis","feedbackmethod":"create"}
+            ],
+            "exceptions":[
+                {"repository": "authorize",
+                    "persisters":[
+                        {"persister":"redis"}
+                    ]
+                }            
+            ]
+        },
+        {
+            "method":"findOne",
+            "persisters": [
+                {"persister":"rdbms","next_rule":"hasvalue","pass_value_next_asparameter":true},
+            ]
+        },
+        {
+            "method":"findAll",
+            "persisters": [
+                {"persister":"rdbms","next_rule":"hasvalue","pass_value_next_asparameter":true}
+            ],
+            "exceptions":[
+                {"repository": "accesstoken",
+                    "persisters":[
+                        {"persister":"redis"}
+                    ]
+                },
+                {"repository": "authtoken",
+                    "persisters":[
+                        {"persister":"redis"}
+                    ]
+                }
+            ]            
+        },        
+        {
+            "method":"search",
+            "persisters": [
+                {"persister":"rdbms"}
+            ]
+        },
+        {
+            "method":"create",
+            "persisters": [
+                {"persister":"rdbms","next_rule": "hasvalue","pass_value_next_asparameter": true},
+                {"persister":"redis"}
+            ]
+        },
+        {
+            "method":"update",
+            "persisters": [
+                {"persister":"rdbms"},
+                {"persister":"redis"}
+            ]
+        },
+        {
+            "method":"erase",
+            "persisters": [
+                {"persister":"rdbms"},
+                {"persister":"redis"}
+            ]
+        }
+    ]
+}

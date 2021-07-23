@@ -26,6 +26,8 @@ paths:
         - $ref: '#/components/parameters/client_id'
         - $ref: '#/components/parameters/response_type'
         - $ref: '#/components/parameters/redirect_uri'
+        - $ref: '#/components/parameters/scope'
+        - $ref: '#/components/parameters/state'
       responses:
         '200':
           description: success
@@ -61,6 +63,18 @@ components:
       name: redirect_uri
       in: query
       required: true
+      schema:
+        type: string
+    scope:
+      name: scope
+      in: query
+      required: true
+      schema:
+        type: string
+    state:
+      name: state
+      in: query
+      required: false
       schema:
         type: string
 
